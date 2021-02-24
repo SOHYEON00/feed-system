@@ -1,19 +1,18 @@
 <template>
   <div id="app">
     <header>[2021-03-01] 오소현</header>
-    
-    <main>
-      <aside>
-      <div class="login">로그인</div>
-      </aside>
-      <MainSection />
-    </main>
-   
+      <main>
+        <aside>
+        <div class="login">로그인</div>
+        </aside>
+        <MainSection />
+      </main>
   </div>
 </template>
 
 <script>
-import MainSection from './components/MainSection.vue'
+import MainSection from './components/MainSection.vue';
+
 
 export default {
   name: 'App',

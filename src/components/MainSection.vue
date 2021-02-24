@@ -13,25 +13,23 @@
                     <span class="created feed-contents-head">{{list.created_at}}</span>  
                 </p>
                 <p class="title">{{list.title}}</p>
-                <!-- <p>{{list.contents}}</p> -->
+                <p>{{list.contents}}</p> 
             </section>
         </article>
     </div>
 </template>
 
 <script>
-
 import Filterbar from './Filterbar';
 import CategoryName from './CategoryName';
 import Vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
-import {HEADER} from '../api.js';
+import {LIST, HEADER} from '../api.js';
 
 Vue.use(VueAxios, axios);
 
 export default {
-    
     name: 'MainSection',
     components: {
         Filterbar,
@@ -44,7 +42,7 @@ export default {
     },
     mounted() {
         // const data = {page: 1, ord: 'asc', category: [1], limit: 5}
-        Vue.axios.get(`https://problem.comento.kr/api/list`, {
+        Vue.axios.get(LIST, {
             params: {
                 'page': 1,
                 'ord': 'asc',
@@ -56,8 +54,7 @@ export default {
         .then((response) => {
             if(response.status === 200){
                 console.log(response.data.data);
-                const realData = response.data.data;
-                this.lists = realData;
+                this.lists = response.data.data;
             }
             
         })
@@ -118,7 +115,7 @@ export default {
         text-overflow: ellipsis;
         height: 3vh;
         white-space: nowrap;
-        width: 100%;
+        width: 83vw;
         overflow: hidden;
     }
 </style>
