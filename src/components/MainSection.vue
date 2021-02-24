@@ -11,8 +11,8 @@
                     <span class="user-id feed-contents-head">{{list.user_id}}</span>
                     <span class="created feed-contents-head">created_at({{sliceText(list.created_at)}})</span>  
                 </p>
-                <p class="title">{{list.title}}</p>
-                <p>{{list.contents}}</p> 
+                <p class="title contents-body">{{list.title}}</p>
+                <p class="contents contents-body">{{list.contents}}</p> 
             </section>
         </article>
     </div>
@@ -78,6 +78,7 @@ export default {
         opacity: 1;
         padding: 2rem;
         margin: 2rem 0;
+        width: 45vw;
     }
 
     .feed-header {
@@ -99,25 +100,32 @@ export default {
         letter-spacing: 0px;
         opacity: 1;
     }
-
-    .feed-contents-head {
-        padding-right: 0.5rem;
-    }
     .user-id {
         color: var(--unnamed-color-00c854);
+        border-right: 1px solid #E1E4E7;
+        padding-right: 0.5rem;
     }
 
     .created {
         color: var(--unnamed-color-495057);
+        padding-left: 0.5rem;
     }
 
-    .title {
-        font: normal normal bold 18px/28px SpoqaHanSans;
-        color: #282C30;
+    .contents-body{
         text-overflow: ellipsis;
         height: 3vh;
         white-space: nowrap;
-        width: 83vw;
         overflow: hidden;
+        letter-spacing: 0px;
+        text-align: left;
+    }
+    .title {
+        font: normal normal bold 18px/28px SpoqaHanSans;
+        color: #282C30;
+    }
+    .contents {
+        font: normal normal normal 16px/25px SpoqaHanSans;
+        color: var(--unnamed-color-495057);
+        color: #495057;  
     }
 </style>

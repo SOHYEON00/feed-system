@@ -27,8 +27,9 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
+  display: flex;
+  flex-direction: column;
 
   --unnamed-color-ffffff: #FFFFFF;
   --unnamed-color-00c854: #00C854;
@@ -54,6 +55,11 @@ header {
 main {
     display: flex;
     flex-direction: row;
+    padding: 3rem 18rem;
+}
+
+aside {
+  margin: 0 3rem;
 }
 
 aside div{
