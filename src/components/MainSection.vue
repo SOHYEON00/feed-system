@@ -118,6 +118,7 @@ export default {
         overflow: hidden;
         letter-spacing: 0px;
         text-align: left;
+        margin: 0;
     }
     .title {
         font: normal normal bold 18px/28px SpoqaHanSans;
