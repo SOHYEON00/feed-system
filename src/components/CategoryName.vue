@@ -1,5 +1,5 @@
 <template>
-  <div>{{this.category_name}}</div>
+  <span class="category">{{this.category_name}}</span>
 </template>
 
 <script>
@@ -31,14 +31,10 @@ export default {
     mounted() {
         Vue.axios.get(CATEGORY, HEADER)
             .then((response) => {
-                // console.log(response);
                 if(response.status === 200) {
                     this.categoryList = response.data.category;
-                    this.category_name = getCategoryName(this.categoryList, this.category_id).name;
-                
-                   
+                    this.category_name = getCategoryName(this.categoryList, this.category_id).name; 
                 }
-               
             })
             .catch((error) => {console.log(error)})
     }

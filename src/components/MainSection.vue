@@ -3,14 +3,13 @@
         <Filterbar />
         <article class="feed-article" v-for="(list, id) in lists" :key="id">
            <section class="feed-header">
-               <span><CategoryName class="category" :category_id="list.category_id" /></span>
-               
+               <CategoryName :category_id="list.category_id" />
                <span class="feed-id">{{id}}</span>
             </section>
             <section class="feed-contents">
                 <p class="feed-contents-head">
                     <span class="user-id feed-contents-head">{{list.user_id}}</span>
-                    <span class="created feed-contents-head">{{list.created_at}}</span>  
+                    <span class="created feed-contents-head">created_at({{sliceText(list.created_at)}})</span>  
                 </p>
                 <p class="title">{{list.title}}</p>
                 <p>{{list.contents}}</p> 
@@ -53,16 +52,19 @@ export default {
         })
         .then((response) => {
             if(response.status === 200){
-                console.log(response.data.data);
                 this.lists = response.data.data;
             }
-            
         })
         .catch((error) => {
             console.log(error);
-            }
-        )
+        })
+    },
+    methods: {
+        sliceText: (text) => {
+            return text.slice(0,10);
+        }
     }
+
 
 }
 </script>
