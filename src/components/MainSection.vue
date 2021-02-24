@@ -2,25 +2,14 @@
     <div>
         <Filterbar />
         <article class="feed-article" v-for="(list, id) in lists" :key="id">
-           <section class="feed-header">
-               <CategoryName :category_id="list.category_id" />
-               <span class="feed-id">{{id}}</span>
-            </section>
-            <section class="feed-contents">
-                <p class="feed-contents-head">
-                    <span class="user-id feed-contents-head">{{list.user_id}}</span>
-                    <span class="created feed-contents-head">created_at({{sliceText(list.created_at)}})</span>  
-                </p>
-                <p class="title contents-body">{{list.title}}</p>
-                <p class="contents contents-body">{{list.contents}}</p> 
-            </section>
+            <Feed :id="id" :list="list" />
         </article>
     </div>
 </template>
 
 <script>
 import Filterbar from './Filterbar';
-import CategoryName from './CategoryName';
+import Feed from './Feed';
 import Vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
@@ -32,7 +21,8 @@ export default {
     name: 'MainSection',
     components: {
         Filterbar,
-        CategoryName
+        Feed
+        // CategoryName
     },
     data() {
         return {
@@ -59,11 +49,11 @@ export default {
             console.log(error);
         })
     },
-    methods: {
-        sliceText: (text) => {
-            return text.slice(0,10);
-        }
-    }
+    // methods: {
+    //     sliceText: (text) => {
+    //         return text.slice(0,10);
+    //     }
+    // }
 
 
 }
@@ -81,7 +71,7 @@ export default {
         width: 45vw;
     }
 
-    .feed-header {
+    /* .feed-header {
         display: flex;
         justify-content: space-between;
         text-align: left;
@@ -128,5 +118,5 @@ export default {
         font: normal normal normal 16px/25px SpoqaHanSans;
         color: var(--unnamed-color-495057);
         color: #495057;  
-    }
+    } */
 </style>
