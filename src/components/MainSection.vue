@@ -38,19 +38,23 @@ export default {
     methods: {
         scrollOnBottom() {
             const currentScrollY = window.scrollY;
-            if(
+            let isGetNewList = false; //window event가 한 번만 일어날 수 있도록 제어해주는 변수
+
+            if( //현재 스크롤 위치 계산
                 currentScrollY + document.documentElement.clientHeight > 
                 document.documentElement.scrollHeight - 10
             ){
-                // do somthing when scroll on the end
-                this.currentPage += 1;
-                window.scrollTo({behavior: 'smooth', top: -300});
+                if(!isGetNewList) { //isGetNewList === false 
+                    this.currentPage += 1;  // get list of new page 
 
-                const lastPage = 10;
-                if(this.currentPage <= lastPage) {
-                    this.getFeedList();
+                    const lastPage = 10;
+                    if(this.currentPage <= lastPage) {
+                        this.getFeedList();
+                    }
+
+                    isGetNewList = true; //event가 연속해서 일어나지 않도록 제어
                 }
-            }
+            } 
         },
 
         getFeedList() {
