@@ -1,27 +1,25 @@
 <template>
     <div>
         <Filterbar />
-        {{storeFeedList}}
-        <!-- <article class="feed-article" v-for="(list, id) in feedList" :key="id">
+        <article class="feed-article" v-for="(list, id) in storeFeedList" :key="id">
             <Feed :id="id" :list="list" />
-        </article> -->
+        </article>
     </div>
 </template>
 
 <script>
 import Filterbar from './Filterbar';
-// import Feed from './Feed';
+import Feed from './Feed';
 
 
 export default {
     name: 'MainSection',
     components: {
         Filterbar,
-        // Feed
+        Feed
     },
     data() {
         return {
-            feedList: undefined,
             currentPage: 1
         }
     },
@@ -42,12 +40,16 @@ export default {
             const currentScrollY = window.scrollY;
             if(
                 currentScrollY + document.documentElement.clientHeight > 
-                document.documentElement.scrollHeight - 200
+                document.documentElement.scrollHeight - 10
             ){
                 // do somthing when scroll on the end
                 this.currentPage += 1;
-                window.scrollTo({behavior: 'smooth', top: -100});
-                this.getFeedList();
+                window.scrollTo({behavior: 'smooth', top: -300});
+
+                const lastPage = 10;
+                if(this.currentPage <= lastPage) {
+                    this.getFeedList();
+                }
             }
         },
 
@@ -58,11 +60,6 @@ export default {
                 'category': [1,2,3],
                 'limit': 10
             };
-            const lastPage = 10;
-            if(parameterObject.page > lastPage) {
-                parameterObject.page = lastPage;
-            }
-
             this.$store.dispatch('getFeedList', parameterObject);
         }
         

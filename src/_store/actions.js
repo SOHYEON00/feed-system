@@ -4,7 +4,7 @@ import {GET_FEED_LIST} from './mutations';
 
 export default {
     getFeedList: function({commit}, parameter) {
-        console.log(parameter.page);
+        // console.log(parameter.page);
         return axios.get(LIST, {
                 params: parameter,
                 HEADER
