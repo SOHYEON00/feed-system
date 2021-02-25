@@ -1,17 +1,17 @@
 <template>
     <section>
         <section class="feed-header">
-               <CategoryName :category_id="list.category_id" />
-               <span class="feed-id">{{id}}</span>
-            </section>
-            <section class="feed-contents">
-                <p class="feed-contents-head">
-                    <span class="user-id feed-contents-head">{{list.user_id}}</span>
-                    <span class="created feed-contents-head">created_at({{sliceText(list.created_at)}})</span>  
-                </p>
-                <p class="title contents-body">{{list.title}}</p>
-                <p class="contents contents-body">{{list.contents}}</p> 
-            </section>
+            <CategoryName :category_id="list.category_id" />
+            <span class="feed-id">{{id}}</span>
+        </section>
+        <section class="feed-contents">
+            <p class="feed-contents-head">
+                <span class="user-id feed-contents-head">{{list.user_id}}</span>
+                <span class="created feed-contents-head">created_at({{sliceText(list.created_at)}})</span>  
+            </p>
+            <p class="title contents-body">{{list.title}}</p>
+            <p class="contents contents-body">{{list.contents}}</p> 
+        </section>
     </section>
     
 </template>
