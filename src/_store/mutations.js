@@ -19,6 +19,6 @@ export default {
         state.FeedList = newFeedList; 
     },
     [CHANGE_ORD_STATUS] (state, data){
-        state.sortStatus = data;
+        state.SortStatus = data;
     }
 }

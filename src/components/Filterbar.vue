@@ -1,7 +1,6 @@
 <template>
   <section class="filterbar">
     <div class="button-container">
-      {{this.ordStatus}}
       <input type="button" value="asc"  @click="onClickSorting" />
       <input type="button" value="desc" @click="onClickSorting"/>
     </div>

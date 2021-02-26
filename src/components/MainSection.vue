@@ -21,50 +21,59 @@ export default {
     data() {
         return {
             currentPage: 1,
-            requestNewList: false,
+            isRequestNewList: false,
         }
     },
     computed: {
         // get state from store
         storeFeedList: function () {
-            return this.$store.state.FeedList;
+            let listFromStore = this.$store.state.FeedList;
+            const ordFromStore = this.storeStatusSort;
+
+            if(ordFromStore === 'asc') {
+                listFromStore.sort((a,b) =>{return a.id-b.id});
+                console.log(listFromStore)
+            } else if(ordFromStore === 'desc'){
+                listFromStore.sort((a,b) => {return b.id-a.id});
+                console.log(listFromStore)
+            }
+           
+            return listFromStore;
         },
         storeStatusSort: function () {
-            return this.$store.state.sortStatus;
+            return this.$store.state.SortStatus;
         }
-        
     },
+
     mounted() {
         window.addEventListener("scroll", this.scrollOnBottom);
-        this.getFeedList();
+        this.getFeedList(); //get api요청
     },
 
     methods: {
-        scrollOnBottom() {
+        scrollOnBottom() { //스크롤이 하단에 닿을 때, event handler
             
             const lastPage = 10;
-            const scrollPosition = window.scrollY + document.documentElement.clientHeight
+            const scrollPosition = window.scrollY + document.documentElement.clientHeight;
       
             if( 
                 scrollPosition > document.documentElement.scrollHeight - 20  //현재 스크롤 위치 계산
                 && this.currentPage <= lastPage
             ) {  
-                if(this.requestNewList === false){ //스크롤 이벤트 제어하기 위한 조건문
+                if(this.isRequestNewList === false){ //스크롤 이벤트 제어하기 위한 조건문
 
-                    this.currentPage ++;  // get list of new page 
+                    this.currentPage++;  // get list of new page 
                     this.getFeedList(); //change state using actions
-                    this.requestNewList = true; 
+                    this.isRequestNewList = true; 
                 }
-                
             } 
 
-            //이벤트 한번만 발생시키기 위한 조건문
             if(scrollPosition < document.documentElement.scrollHeight - 20) { 
-                this.requestNewList = false; //다시 스크롤 내릴 때, api요청하기 위해 false로 바꿔줌.
+                this.isRequestNewList = false; //다시 스크롤 내릴 때, api요청하기 위해 false로 바꿔줌.
             }
         },
 
-        getFeedList() {
+        getFeedList() { //request dispatch to get feed list
             const parameterObject = {
                 'page': this.currentPage,
                 'ord': this.storeStatusSort,
