@@ -1,7 +1,7 @@
 //data storage
  
 const state = { 
-    sortStatus: String,
+    sortStatus: 'asc',
     categoryList: [],
     FeedList: [],
     AdList: []

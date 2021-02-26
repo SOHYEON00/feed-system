@@ -1,14 +1,15 @@
 <template>
-  <div class="filterbar">
+  <section class="filterbar">
     <div class="button-container">
-      <input type="button" value="오름차순" id="asce" />
-      <input type="button" value="내림차순" id="desc" />
+      {{this.ordStatus}}
+      <input type="button" value="asc"  @click="onClickSorting" />
+      <input type="button" value="desc" @click="onClickSorting"/>
     </div>
-    
     
     <Modal v-if="isOpenModal" @close-modal="isOpenModal=false" />
     <button @click="isOpenModal=true">필터</button>
-  </div>
+
+  </section>
 </template>
 
 <script>
@@ -21,9 +22,22 @@ export default {
   },
   data() {
     return {
+      ordStatus: 'asc',
       isOpenModal: false,
     }
-  }
+  },
+  methods: {
+    onClickSorting: function(e) {
+      const {value} = e.target;
+      
+      this.ordStatus = value;
+      this.$store.commit('CHANGE_ORD_STATUS', this.ordStatus);
+    },
+
+    dispatchSortStatus: function () {
+       this.$store.commit('CHANGE_ORD_STATUS', this.ordStatus);
+    }
+  },
 }
 </script>
 

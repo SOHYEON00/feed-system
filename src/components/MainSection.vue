@@ -1,7 +1,7 @@
 <template>
     <div>
         <Filterbar />
-        <article class="feed-article" v-for="(list, id) in storeFeedList" :key="id">
+        <article class="feed-article" v-for="(list, id) in this.storeFeedList" :key="id">
             <Feed :id="id" :list="list" />
         </article>
     </div>
@@ -20,13 +20,16 @@ export default {
     },
     data() {
         return {
-            currentPage: 1
+            currentPage: 1,
         }
     },
     computed: {
         // get state from store
-        storeFeedList() {
+        storeFeedList: function () {
             return this.$store.state.FeedList;
+        },
+        storeStatusSort: function () {
+            return this.$store.state.sortStatus;
         }
         
     },
@@ -39,19 +42,16 @@ export default {
         scrollOnBottom() {
             const currentScrollY = window.scrollY;
             let isGetNewList = false; //window event가 한 번만 일어날 수 있도록 제어해주는 변수
+            const lastPage = 10;
 
             if( //현재 스크롤 위치 계산
                 currentScrollY + document.documentElement.clientHeight > 
                 document.documentElement.scrollHeight - 10
             ){
-                if(!isGetNewList) { //isGetNewList === false 
+                if(!isGetNewList && this.currentPage <= lastPage) { 
                     this.currentPage += 1;  // get list of new page 
-
-                    const lastPage = 10;
-                    if(this.currentPage <= lastPage) {
-                        this.getFeedList();
-                    }
-
+                    this.getFeedList();
+                
                     isGetNewList = true; //event가 연속해서 일어나지 않도록 제어
                 }
             } 
@@ -60,7 +60,7 @@ export default {
         getFeedList() {
             const parameterObject = {
                 'page': this.currentPage,
-                'ord': 'asc',
+                'ord': this.storeStatusSort,
                 'category': [1,2,3],
                 'limit': 10
             };
