@@ -21,6 +21,7 @@ export default {
     data() {
         return {
             currentPage: 1,
+            requestNewList: false,
         }
     },
     computed: {
@@ -40,21 +41,27 @@ export default {
 
     methods: {
         scrollOnBottom() {
-            const currentScrollY = window.scrollY;
-            let isGetNewList = false; //window event가 한 번만 일어날 수 있도록 제어해주는 변수
+            
             const lastPage = 10;
+            const scrollPosition = window.scrollY + document.documentElement.clientHeight
+      
+            if( 
+                scrollPosition > document.documentElement.scrollHeight - 20  //현재 스크롤 위치 계산
+                && this.currentPage <= lastPage
+            ) {  
+                if(this.requestNewList === false){ //스크롤 이벤트 제어하기 위한 조건문
 
-            if( //현재 스크롤 위치 계산
-                currentScrollY + document.documentElement.clientHeight > 
-                document.documentElement.scrollHeight - 10
-            ){
-                if(!isGetNewList && this.currentPage <= lastPage) { 
-                    this.currentPage += 1;  // get list of new page 
-                    this.getFeedList();
-                
-                    isGetNewList = true; //event가 연속해서 일어나지 않도록 제어
+                    this.currentPage ++;  // get list of new page 
+                    this.getFeedList(); //change state using actions
+                    this.requestNewList = true; 
                 }
+                
             } 
+
+            //이벤트 한번만 발생시키기 위한 조건문
+            if(scrollPosition < document.documentElement.scrollHeight - 20) { 
+                this.requestNewList = false; //다시 스크롤 내릴 때, api요청하기 위해 false로 바꿔줌.
+            }
         },
 
         getFeedList() {

@@ -22,21 +22,17 @@ export default {
   },
   data() {
     return {
-      ordStatus: 'asc',
+      ordStatus: 'asc', 
       isOpenModal: false,
     }
   },
   methods: {
     onClickSorting: function(e) {
-      const {value} = e.target;
+      const {value} = e.target; 
       
-      this.ordStatus = value;
-      this.$store.commit('CHANGE_ORD_STATUS', this.ordStatus);
+      this.ordStatus = value; //change data(ordStatus) to value of clicked dom element
+      this.$store.commit('CHANGE_ORD_STATUS', this.ordStatus); // mutate state of application(sortStatus)
     },
-
-    dispatchSortStatus: function () {
-       this.$store.commit('CHANGE_ORD_STATUS', this.ordStatus);
-    }
   },
 }
 </script>
