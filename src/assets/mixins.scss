@@ -3,13 +3,8 @@
     text-align: left;
 }
 
-@mixin opacity-one {
-    opacity: 1;
-}
 
 @mixin set-flex($direction) {
     display: flex;
     flex-direction: $direction;
 }
-
-// @include set-flex(row);
