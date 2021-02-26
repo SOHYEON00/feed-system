@@ -1,9 +1,11 @@
 <template>
-    <div>
+    <div class="mainSection">
         <Filterbar />
-        <article class="feed-article" v-for="(list, id) in this.storeFeedList" :key="id">
-            <Feed :id="id" :list="list" />
-        </article>
+        <div class="feedContainer">
+            <div class="feed-article" v-for="(list, id) in this.storeFeedList" :key="id">
+                <Feed :id="id" :list="list" />
+            </div>
+        </div>
     </div>
 </template>
 
@@ -83,20 +85,5 @@ export default {
         }
         
     }
-
-
 }
 </script>
-
-<style scoped>
-    .feed-article {
-        background: var(--unnamed-color-ffffff) 0% 0% no-repeat padding-box;
-        background: #FFFFFF 0% 0% no-repeat padding-box;
-        border: 1px solid #E1E4E7;
-        border-radius: 5px;
-        opacity: 1;
-        padding: 2rem;
-        margin: 2rem 0;
-        width: 45vw;
-    }
-</style>

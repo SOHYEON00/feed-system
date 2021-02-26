@@ -1,0 +1,30 @@
+@media screen and (max-width: 768px) {
+    aside {
+        display: none;
+    }
+
+    .feedContainer {
+        width: 100%;
+    }
+    .filterbar {
+        width: 100%;
+    }
+    .mainSection {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    aside {
+        display: block;
+    }
+    .feedContainer {
+        width: 80%;
+    }
+    .filterbar {
+        width: 80%;
+    }
+    .mainSection {
+        width: 65%;
+    }
+}

@@ -41,15 +41,14 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  /* 선택된 정렬상태 */
+  .active { 
+    color: green;
+  }
 
-/* 선택된 정렬상태 */
-.active { 
-  color: green;
-}
-
-/* 선택되지 않은 정렬상태 */
-.noActive {
-  color: red;
-}
+  /* 선택되지 않은 정렬상태 */
+  .noActive {
+    color: red;
+  }
 </style>

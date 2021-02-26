@@ -1,0 +1,42 @@
+.feed-header {
+    @include set-flex(row);
+    justify-content: space-between;
+    font: normal normal normal 13px/25px SpoqaHanSans;
+    letter-spacing: 0px;
+    color: $feed_info_color;
+    border-bottom: 1px solid #E1E4E7;
+    padding-bottom: 0.5rem;
+}
+
+.feed-contents {
+    font: normal normal normal 13px/25px SpoqaHanSans;
+
+    .user-id {
+        color: $comento_color;
+        border-right: 1px solid #E1E4E7;
+        padding-right: 0.5rem;
+    }
+    .created {
+        color: $contents_color;
+        padding-left: 0.5rem;
+    }
+
+    .contents-body{
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        margin: 0;
+    }
+    .title {
+        font-size: 18px/28px;
+        color: $title_color
+    }
+    .contents {
+        font-size: 16px/25px;
+        color: $contents_color;
+    }
+
+}
+
+
+
