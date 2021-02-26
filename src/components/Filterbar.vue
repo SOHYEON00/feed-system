@@ -33,7 +33,7 @@ export default {
       this.ordStatus = value; //change data(ordStatus) to value of clicked dom element
       this.$store.commit('CHANGE_ORD_STATUS', this.ordStatus); // mutate state of application(sortStatus)
       
-      (value === 'asc') ? 
+      (value === 'asc') ? //선택된 정렬에 따라 클래스 활성화/비활성화
         this.isActive = true : this.isActive = false;
       
     },
@@ -43,10 +43,12 @@ export default {
 
 <style scoped>
 
-.active {
+/* 선택된 정렬상태 */
+.active { 
   color: green;
 }
 
+/* 선택되지 않은 정렬상태 */
 .noActive {
   color: red;
 }

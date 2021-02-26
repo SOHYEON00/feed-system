@@ -2,7 +2,7 @@
     <section>
         <section class="feed-header">
             <CategoryName :category_id="list.category_id" />
-            <span class="feed-id">{{list.id}}</span>
+            <span class="feed-id">post num: {{list.id}}</span>
         </section>
         <section class="feed-contents">
             <p class="feed-contents-head">
