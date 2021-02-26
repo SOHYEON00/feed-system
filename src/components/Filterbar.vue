@@ -1,8 +1,8 @@
 <template>
   <section class="filterbar">
     <div class="button-container">
-      <input type="button" value="asc"  @click="onClickSorting" />
-      <input type="button" value="desc" @click="onClickSorting"/>
+      <input type="button" value="asc" v-bind:class="{active: isActive , noActive: !isActive}" @click="onClickSorting" />
+      <input type="button" value="desc" v-bind:class="{active: !isActive, noActive: isActive}" @click="onClickSorting"/>
     </div>
     
     <Modal v-if="isOpenModal" @close-modal="isOpenModal=false" />
@@ -23,6 +23,7 @@ export default {
     return {
       ordStatus: 'asc', 
       isOpenModal: false,
+      isActive: true,
     }
   },
   methods: {
@@ -31,6 +32,10 @@ export default {
       
       this.ordStatus = value; //change data(ordStatus) to value of clicked dom element
       this.$store.commit('CHANGE_ORD_STATUS', this.ordStatus); // mutate state of application(sortStatus)
+      
+      (value === 'asc') ? 
+        this.isActive = true : this.isActive = false;
+      
     },
   },
 }
@@ -38,4 +43,11 @@ export default {
 
 <style scoped>
 
+.active {
+  color: green;
+}
+
+.noActive {
+  color: red;
+}
 </style>

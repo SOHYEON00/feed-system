@@ -30,15 +30,14 @@ export default {
             let listFromStore = this.$store.state.FeedList;
             const ordFromStore = this.storeStatusSort;
 
+            //store.state는 변경하지 않고, 출력list만 정렬
             if(ordFromStore === 'asc') {
                 listFromStore.sort((a,b) =>{return a.id-b.id});
-                console.log(listFromStore)
             } else if(ordFromStore === 'desc'){
                 listFromStore.sort((a,b) => {return b.id-a.id});
-                console.log(listFromStore)
             }
            
-            return listFromStore;
+            return listFromStore; 
         },
         storeStatusSort: function () {
             return this.$store.state.SortStatus;
