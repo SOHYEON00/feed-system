@@ -4,7 +4,8 @@ const state = {
     SortStatus: 'asc',
     CategoryList: [],
     FeedList: [],
-    AdList: []
+    AdList: [],
+    ModalStatus: false,
 }
 
 export default state;
