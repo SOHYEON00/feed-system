@@ -1,12 +1,20 @@
 <template>
   <section class="filterbar">
     <div class="button-container">
-      <input type="button" value="asc" v-bind:class="{active: isActive , noActive: !isActive}" @click="onClickSorting" />
-      <input type="button" value="desc" v-bind:class="{active: !isActive, noActive: isActive}" @click="onClickSorting"/>
-    </div>
+
+      <span v-bind:class="{active: isActive, noActive: !isActive}">
+        <label for="asc">●</label>
+        <input class="sortInput" type="button" id="asc" value="오름차순" @click="onClickSorting" />
+      </span>
+
+      <span v-bind:class="{active: !isActive, noActive: isActive}">
+        <label for="desc">●</label>
+        <input class="sortInput" type="button" id="desc" value="내림차순"  @click="onClickSorting"/>
+      </span>
+     </div>
     
     <Modal v-if="isOpenModal" @close-modal="isOpenModal=false" />
-    <button @click="isOpenModal=true">필터</button>
+    <button class="filterBtn" @click="isOpenModal=true">필터</button>
 
   </section>
 </template>
@@ -42,13 +50,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  /* 선택된 정렬상태 */
-  .active { 
-    color: green;
-  }
+@import '@/assets/filterbar.scss';
 
-  /* 선택되지 않은 정렬상태 */
-  .noActive {
-    color: red;
-  }
 </style>

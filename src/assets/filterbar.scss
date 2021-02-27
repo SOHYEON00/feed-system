@@ -1,0 +1,38 @@
+.filterbar {
+    @include set-flex(row);
+    justify-content: space-between;
+    
+    .button-container {
+      input[type="button"]{
+        border: none;
+        background-color: white;
+      }
+    }
+
+    .filterBtn {
+      background-color: $background_white;
+      border: 1px solid $no_active;
+      border-radius: 3px;
+      color: $no_active;
+      padding: 0.2rem 0.6rem;
+    }
+  }
+  /* 선택된 정렬상태 */
+  .active { 
+    label {
+      color: $comento_color;
+    }
+    .sortInput {
+      color : $title_color;
+    }
+  }
+
+  /* 선택되지 않은 정렬상태 */
+  .noActive {
+      label {
+      color: $no_active;
+    }
+    .sortInput {
+      color : $no_active;
+    }
+  }
