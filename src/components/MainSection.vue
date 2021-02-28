@@ -1,7 +1,7 @@
 <template>
     <div class="mainSection">
         <Filterbar />
-        <Modal v-if="this.storeModalStatus" @close-modal="this.storeModalStatus=false" />
+        
         <div class="feedContainer">
             <div class="feed-article" v-for="(list, id) in this.storeFeedList" :key="id">
                 <Feed :id="id" :list="list" />
@@ -13,15 +13,12 @@
 <script>
 import Filterbar from './Filterbar';
 import Feed from './Feed';
-import Modal from './Modal';
-
 
 export default {
     name: 'MainSection',
     components: {
         Filterbar,
         Feed,
-        Modal
     },
     data() {
         return {
@@ -46,9 +43,7 @@ export default {
         storeStatusSort: function () {
             return this.$store.state.SortStatus;
         },
-        storeModalStatus: function() {
-            return this.$store.state.ModalStatus;
-        },
+        
         storeCategoryList: function () {
             return this.$store.state.CategoryList;
         }

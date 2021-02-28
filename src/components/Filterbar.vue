@@ -31,12 +31,12 @@ export default {
   methods: {
 
     onClickSorting: function(e) {
-      const {value} = e.target; 
+      const {id} = e.target; 
       
-      this.ordStatus = value; //change data(ordStatus) to value of clicked dom element
+      this.ordStatus = id; //change data(ordStatus) to value of clicked dom element
       this.$store.commit(CHANGE_ORD_STATUS, this.ordStatus); // mutate state of application(sortStatus)
       
-      (value === 'asc') ? //선택된 정렬에 따라 클래스 활성화/비활성화
+      (id === 'asc') ? //선택된 정렬에 따라 클래스 활성화/비활성화
         this.isActive = true : this.isActive = false;
     },
 
