@@ -1,6 +1,7 @@
 export const HEADER = {
   
-    "Accept":' application/json' };
+    "Accept":' application/json' 
+};
 
 // apis
 const BASE_URL = "https://problem.comento.kr";

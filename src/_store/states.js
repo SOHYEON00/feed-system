@@ -1,5 +1,5 @@
 //data storage
- 
+
 const state = { 
     SortStatus: 'asc',
     CategoryList: [],

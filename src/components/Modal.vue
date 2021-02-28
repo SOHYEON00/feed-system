@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import {TOGGLE_MODAL} from '@/_store/mutations';
+import {TOGGLE_MODAL} from '@/_store/types';
 
 export default {
   name: 'Modal',

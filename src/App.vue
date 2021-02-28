@@ -14,13 +14,12 @@
 import MainSection from './components/MainSection.vue';
 import {store} from './_store/store';
 
-
 export default {
   name: 'App',
   store,
   components: {
     MainSection,
-  }
+  },
 }
 </script>
 

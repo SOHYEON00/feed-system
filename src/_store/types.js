@@ -1,0 +1,5 @@
+export const GET_CATEGORY_LIST = "GET_CATEGORY_LIST";
+export const GET_FEED_LIST = "GET_FEED_LIST";
+
+export const CHANGE_ORD_STATUS = "CHANGE_ORD_STATUS";
+export const TOGGLE_MODAL = "TOGGLE_MODAL";

@@ -41,7 +41,6 @@ export default {
             } else if(ordFromStore === 'desc'){
                 listFromStore.sort((a,b) => {return b.id-a.id});
             }
-           
             return listFromStore; 
         },
         storeStatusSort: function () {
@@ -49,12 +48,15 @@ export default {
         },
         storeModalStatus: function() {
             return this.$store.state.ModalStatus;
+        },
+        storeCategoryList: function () {
+            return this.$store.state.CategoryList;
         }
     },
 
     mounted() {
         window.addEventListener("scroll", this.scrollOnBottom);
-        this.getFeedList(); //get api요청
+        this.getCategoryList(); //get api요청
     },
 
     methods: {
@@ -81,13 +83,27 @@ export default {
         },
 
         getFeedList() { //request dispatch to get feed list
+
+            let categoryIdList;
+
+            if(this.storeCategoryList.length === 0) {
+                categoryIdList = [1,2,3];
+            } else {
+                categoryIdList = this.storeCategoryList.map(e => e.id);
+            }
+
             const parameterObject = {
                 'page': this.currentPage,
                 'ord': this.storeStatusSort,
-                'category': [1,2,3],
+                'category': categoryIdList,
                 'limit': 10
             };
             this.$store.dispatch('getFeedList', parameterObject);
+        },
+
+        getCategoryList() {
+            this.$store.dispatch('getCategoryList');
+            this.getFeedList();
         }
         
     }

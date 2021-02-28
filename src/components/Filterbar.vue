@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import {TOGGLE_MODAL, CHANGE_ORD_STATUS} from '@/_store/mutations';
+import {TOGGLE_MODAL, CHANGE_ORD_STATUS} from '@/_store/types';
 
 export default {
   name: 'Filterbar',
