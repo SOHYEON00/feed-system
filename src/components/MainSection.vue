@@ -30,6 +30,7 @@ export default {
         storeFeedList: function () {
             let listFromStore = this.$store.state.FeedList;
             const ordFromStore = this.storeStatusSort;
+            const selectedCateogoryList = this.storeSelectedCategoryList;
 
             //store.state는 변경하지 않고, 출력list만 정렬
             if(ordFromStore === 'asc') {
@@ -37,7 +38,12 @@ export default {
             } else if(ordFromStore === 'desc'){
                 listFromStore.sort((a,b) => {return b.id-a.id});
             }
-            return listFromStore; 
+
+            const categoryIdList = selectedCateogoryList.map(e => e.id);
+            listFromStore = listFromStore.filter(e => categoryIdList.includes(e.category_id));  
+            
+            return listFromStore;
+
         },
         storeStatusSort: function () {
             return this.$store.state.SortStatus;
@@ -46,6 +52,16 @@ export default {
         storeAllCategoryList: function () {
             return this.$store.state.AllCategoryList;
         },
+
+        storeSelectedCategoryList: function() {
+            let selected = this.$store.state.SelectedCategoryList;
+            if(selected.length === 0) {
+                selected = this.storeAllCategoryList.concat();
+                this.$store.commit('SET_SELECTED_CATEGORY', selected);
+            } 
+
+            return selected;
+        }
     },
 
     mounted() {

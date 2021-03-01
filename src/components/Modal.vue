@@ -10,11 +10,10 @@
         <div >
           <label class="categoryListContainer" 
             v-for="(category) in this.storeAllCategoryList" 
-            :for="category.name" 
+            :for="category.id" 
             :key="category.id" >
             <input 
               type="checkbox" 
-              :name="checkedCategory"
               :id="category.id" 
               :value="category"
               v-model="checkedCategory"
@@ -44,27 +43,23 @@ export default {
   },
   computed: {
     storeSelectedList: function () {
-      let selected = this.$store.state.SelectedCategoryList;
-      if(selected.length === 0) {
-        selected = this.storeAllCategoryList.concat();
-        this.$store.commit('SET_SELECTED_CATEGORY', selected);
-      } 
-
-      return selected;
+      return this.$store.state.SelectedCategoryList;
     },
+
     storeAllCategoryList: function() {
       return this.$store.state.AllCategoryList;
     }
   },
 
   methods: {
-    closeModal: function() {
+    closeModal: function() { //close modal function
       this.$store.commit('TOGGLE_MODAL', false);
     },
 
     onSubmitHandler: function(e) {  
       e.preventDefault();
       this.$store.commit('SET_SELECTED_CATEGORY', this.checkedCategory); 
+      this.closeModal();
     },
 
     // 모든 체크박스 기본세팅: 모두 선택

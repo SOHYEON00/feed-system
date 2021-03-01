@@ -1,8 +1,7 @@
 <template>
     <article >
-
         <section class="feed-header">
-            <CategoryName :category_id="list.category_id" />
+            <span class="category">{{this.printCategoryName}}</span>
             <span class="feed-id">post num: {{list.id}}</span>
         </section>
 
@@ -20,26 +19,37 @@
 </template>
 
 <script>
-import CategoryName from './CategoryName';
 
 export default {
-
         name: 'Feed',
 
-        components: {
-            CategoryName
+        data() {
+            return {
+                category_name:'',
+            }
         },
-
         props: {
             id: Number,
             list: Object
         },
+        computed: {
+            storeAllCategory: function() {
+                return this.$store.state.AllCategoryList;
+            },
+
+            printCategoryName: function() {
+                
+                const pickedCategory = this.storeAllCategory.filter((e) => e.id === this.list.category_id);
+                return pickedCategory[0].name;
+            }
+        },
+     
          methods: {
-            
             //date slice method 'yyyy-mm-dd'
             sliceText: (text) => {
                 return text.slice(0,10);
             },
+           
         }
 }
 </script>

@@ -2,20 +2,7 @@
   <span class="category">{{this.category_name}}</span>
 </template>
 
-<script>
-import Vue from 'vue';
-import axios from 'axios';
-import VueAxios from 'vue-axios';
-import {CATEGORY, HEADER} from '../api.js';
-
-Vue.use(VueAxios, axios);
-
-const getCategoryName = (list, id) => {
-    let pickedCategory = list;
-    pickedCategory = pickedCategory.filter((e) => e.id === id);
-
-    return pickedCategory[0];
-} 
+<script> 
 
 export default {
     name: "CategoryName",
@@ -24,24 +11,24 @@ export default {
     },
     data() {
         return {
-            categoryList: undefined,
-            category_name: undefined,
+            category_name: String,
+        }
+    },
+    computed: {
+        storeAllCategory: function() {
+            return this.$store.state.AllCategoryList;
         }
     },
     mounted() {
-        Vue.axios.get(CATEGORY, HEADER)
-            .then((response) => {
-                if(response.status === 200) {
-                    this.categoryList = response.data.category;
-                    this.category_name = getCategoryName(this.categoryList, this.category_id).name; 
-                }
-            })
-            .catch((error) => {console.log(error)})
+        this.getCategoryName(this.storeAllCategory, this.category_id);
+    },
+    methods: {
+         getCategoryName: function (list, id) {
+            let pickedCategory = list;
+            pickedCategory = pickedCategory.filter((e) => e.id === id);
+            this.category_name = pickedCategory[0].name;
+        }
     }
 }
 
 </script>
-
-<style>
-
-</style>
