@@ -1,0 +1,36 @@
+.detail-main{
+    padding: 5rem 11vw;
+
+    .feed-body-container {
+        background: $background_white 0% 0% no-repeat padding-box;
+        border: 2px solid $comento_color;
+        border-radius: 5px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .reply-container {
+        .emphasize {
+            font: normal normal bold 16px/25px SpoqaHanSans;
+            color: $comento_color;
+        }
+
+        article {
+            background: #FFFFFF 0% 0% no-repeat padding-box;
+            border: 1px solid #E1E4E7;
+            border-radius: 5px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+
+            .user_name {
+                font: normal normal normal 16px/25px SpoqaHanSans;
+                color: $feed_info_color;
+                border-bottom: 1px solid #E1E4E7;
+                margin: 0;
+                padding-bottom: 0.5rem;
+            }
+        }
+    }
+}
+
+

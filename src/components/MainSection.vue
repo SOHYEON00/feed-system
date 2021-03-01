@@ -1,5 +1,5 @@
 <template>
-    <main>
+    <main class="mainpage-main">
         <aside>
             <div class="login">로그인</div>
         </aside>

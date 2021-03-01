@@ -13,10 +13,12 @@ body {
             background: var(--unnamed-color-ffffff) 0% 0% no-repeat padding-box;
             height: 5rem;
             @include set-flex(row);
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
+            padding: 0 11vw;
         }
-        main {
+
+        .mainpage-main {
             @include set-flex(row);
             @include text-reset;
             justify-content: center;
@@ -58,6 +60,19 @@ body {
         }
 
     }
+    .title {
+        font: normal normal bold 18px/28px SpoqaHanSans;;
+        color: $title_color
+    }
 
+    .contents {
+        font: normal normal normal 16px/25px SpoqaHanSans;
+        color: $contents_color;
+        margin: 1rem 0;
+    }
+    .created {
+        font: normal normal normal 13px/25px SpoqaHanSans;
+        color: #ADB5BD;
+    }
 }
 
