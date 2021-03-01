@@ -4,6 +4,7 @@ import {GET_FEED_LIST, GET_ALL_CATEGORY_LIST, SET_SELECTED_CATEGORY, SET_ADS_LIS
 
 export default {
     getFeedList: function({commit}, parameter) {
+        console.log(parameter);
         return axios.get(LIST, {
                 params: parameter,
                 HEADER

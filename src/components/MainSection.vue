@@ -30,6 +30,7 @@ export default {
         return {
             currentPage: 1,
             isRequestNewList: false,
+            categoryIdList: [],
         }
     },
     computed: {
@@ -46,8 +47,8 @@ export default {
                 listFromStore.sort((a,b) => {return b.id-a.id});
             }
             //category list에서 id만 반환된 리스트
-            const categoryIdList = selectedCateogoryList.map(e => e.id);
-            listFromStore = listFromStore.filter(e => categoryIdList.includes(e.category_id));  
+            const idList = selectedCateogoryList.map(e => e.id);
+            listFromStore = listFromStore.filter(e => idList.includes(e.category_id));  
             
             return listFromStore;
 
@@ -68,13 +69,16 @@ export default {
                 this.$store.commit('SET_SELECTED_CATEGORY', selected);
             } 
             return selected;
+        },
+
+        storeAdList: function() {
+            return this.$store.state.AdList;
         }
     },
 
     mounted() {
         window.addEventListener("scroll", this.scrollOnBottom);
         this.getAllCategoryList(); //get api요청
-        console.log(this.storeFeedList);
     },
 
     methods: {
@@ -89,7 +93,15 @@ export default {
             ) {  
                 if(this.isRequestNewList === false){ //스크롤 이벤트 제어하기 위한 조건문
                     this.currentPage++;  // get list of new page 
-                    this.getFeedList(); //change state using actions
+                    //change state using actions
+                    const parameterObject = {
+                        'page': this.currentPage,
+                        'ord': this.storeStatusSort,
+                        'category': this.categoryIdList,
+                        'limit': 10
+                    };
+
+                    this.$store.dispatch('getFeedList', parameterObject);
                     this.isRequestNewList = true; 
                 }
             } 
@@ -101,23 +113,24 @@ export default {
 
         getFeedList() { //request dispatch to get feed list
 
-            let categoryIdList;
             // let initialCategoryList
-
-            //category List initialize, if dispatch(api/list) before get category list
             if(this.storeAllCategoryList.length === 0) {
-                categoryIdList = [1,2,3];
+                this.categoryIdList = [1,2,3];
+            } else {
+                this.categoryIdList = this.storeAllCategoryList.map(e => e.id);
+            }
+            //category List initialize, if dispatch(api/list) before get category list
+            if(this.storeFeedList.length === 0) {
                 const parameterObject = {
                     'page': this.currentPage,
                     'ord': this.storeStatusSort,
-                    'category': categoryIdList,
+                    'category': this.categoryIdList,
                     'limit': 10
                 };
 
                 this.$store.dispatch('getFeedList', parameterObject);
-            } else {
-                categoryIdList = this.storeAllCategoryList.map(e => e.id);
-            }
+            } 
+            
         },
         //category list initialize
         getAllCategoryList() {
