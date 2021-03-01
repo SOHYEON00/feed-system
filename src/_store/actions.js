@@ -1,6 +1,6 @@
 import {LIST, CATEGORY, HEADER} from '../api.js';
 import axios from 'axios';
-import {GET_FEED_LIST, GET_CATEGORY_LIST} from './types';
+import {GET_FEED_LIST, GET_ALL_CATEGORY_LIST, SET_SELECTED_CATEGORY} from './mutations';
 
 export default {
     getFeedList: function({commit}, parameter) {
@@ -15,12 +15,17 @@ export default {
             .catch((error) => { console.log(error); })
     },
 
-    getCategoryList: function({commit}) {
+    //get all category list
+    getAllCategoryList: function({commit}) {
         return axios.get(CATEGORY, {HEADER})
             .then((response) => {
-                commit(GET_CATEGORY_LIST, response.data.category);
+                commit(GET_ALL_CATEGORY_LIST, response.data.category);
             })
             .catch((error) => {console.log(error); })
+    },
+
+    setSelectedCategoryList: function({commit}, list) {
+        return commit(SET_SELECTED_CATEGORY, list);
     }
 
 }

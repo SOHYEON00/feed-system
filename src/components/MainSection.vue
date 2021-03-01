@@ -44,14 +44,14 @@ export default {
             return this.$store.state.SortStatus;
         },
         
-        storeCategoryList: function () {
-            return this.$store.state.CategoryList;
+        storeAllCategoryList: function () {
+            return this.$store.state.AllCategoryList;
         }
     },
 
     mounted() {
         window.addEventListener("scroll", this.scrollOnBottom);
-        this.getCategoryList(); //get api요청
+        this.getAllCategoryList(); //get api요청
     },
 
     methods: {
@@ -81,10 +81,11 @@ export default {
 
             let categoryIdList;
 
-            if(this.storeCategoryList.length === 0) {
+            //category List initialize, if dispatch(api/list) before get category list
+            if(this.storeAllCategoryList.length === 0) {
                 categoryIdList = [1,2,3];
             } else {
-                categoryIdList = this.storeCategoryList.map(e => e.id);
+                categoryIdList = this.storeAllCategoryList.map(e => e.id);
             }
 
             const parameterObject = {
@@ -94,10 +95,11 @@ export default {
                 'limit': 10
             };
             this.$store.dispatch('getFeedList', parameterObject);
+            this.$store.dispatch('setSelectedCategoryList', categoryIdList);
         },
-
-        getCategoryList() {
-            this.$store.dispatch('getCategoryList');
+        //category list initialize
+        getAllCategoryList() {
+            this.$store.dispatch('getAllCategoryList');
             this.getFeedList();
         }
         

@@ -1,6 +1,12 @@
 // state 자체를 변경하는 메소드
 // statusSort, categoryList 변경
-import {GET_FEED_LIST, CHANGE_ORD_STATUS, TOGGLE_MODAL, GET_CATEGORY_LIST} from './types';
+export const GET_ALL_CATEGORY_LIST = "GET_CATEGORY_LIST";
+export const GET_FEED_LIST = "GET_FEED_LIST";
+
+export const CHANGE_ORD_STATUS = "CHANGE_ORD_STATUS";
+export const TOGGLE_MODAL = "TOGGLE_MODAL";
+export const SET_SELECTED_CATEGORY = "SET_SELECTED_CATEGORY";
+
 
 export default {
     [GET_FEED_LIST] (state, data) {
@@ -15,7 +21,10 @@ export default {
     [TOGGLE_MODAL] (state, boolean) {
         state.ModalStatus = boolean;
     },
-    [GET_CATEGORY_LIST](state, data) {
-        state.CategoryList = data;
+    [GET_ALL_CATEGORY_LIST](state, data) {
+        state.AllCategoryList = data;
+    },
+    [SET_SELECTED_CATEGORY](state, list) {
+        state.SelectedCategoryList = list;
     }
 }

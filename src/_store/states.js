@@ -2,7 +2,8 @@
 
 const state = { 
     SortStatus: 'asc',
-    CategoryList: [],
+    AllCategoryList: [],
+    SelectedCategoryList: [],
     FeedList: [],
     AdList: [],
     ModalStatus: false,
