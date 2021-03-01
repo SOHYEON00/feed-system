@@ -44,7 +44,13 @@ export default {
   },
   computed: {
     storeSelectedList: function () {
-      return this.$store.state.SelectedCategoryList;
+      let selected = this.$store.state.SelectedCategoryList;
+      if(selected.length === 0) {
+        selected = this.storeAllCategoryList.concat();
+        this.$store.commit('SET_SELECTED_CATEGORY', selected);
+      } 
+
+      return selected;
     },
     storeAllCategoryList: function() {
       return this.$store.state.AllCategoryList;
@@ -63,13 +69,16 @@ export default {
 
     // 모든 체크박스 기본세팅: 모두 선택
     initialCheck: function() {
-      const tempList = this.storeSelectedList.concat();
-      for(let i in tempList) {
-        if (tempList[i].checked) {
-          this.checkedCategory.push(tempList[i]);
-        } 
+
+      let selected = this.storeSelectedList.concat();
+      console.log(selected);
+      for(let i in selected){
+        if(selected[i].checked) {
+          this.checkedCategory.push(selected[i]);
+        }
       }
-    }
+    },
+
 
   }
 }

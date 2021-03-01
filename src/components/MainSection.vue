@@ -46,14 +46,6 @@ export default {
         storeAllCategoryList: function () {
             return this.$store.state.AllCategoryList;
         },
-
-        storeSelectedCategoryList: function() {
-            let selected = this.$store.state.SelectedCategoryList;
-            selected = (selected.length === 0) ? this.storeAllCategoryList : selected;
-
-            this.$store.commit('SET_SELECTED_CATEGORY', selected);
-            return selected;
-        }
     },
 
     mounted() {
@@ -109,8 +101,6 @@ export default {
             this.$store.dispatch('getAllCategoryList');
             this.getFeedList();
         },
-
-  
         
     }
 }
