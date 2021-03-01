@@ -7,14 +7,13 @@
           <aside>
           <div class="login">로그인</div>
           </aside>
-          <MainSection />
+          <router-view></router-view>
         </main>
       </div>
   </div>
 </template>
 
 <script>
-import MainSection from './components/MainSection.vue';
 import {store} from './_store/store';
 import Modal from './components/Modal';
 
@@ -23,7 +22,6 @@ export default {
   name: 'App',
   store,
   components: {
-    MainSection,
     Modal
   },
   computed: {

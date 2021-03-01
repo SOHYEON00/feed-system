@@ -3,7 +3,9 @@
         <Filterbar />
         <div class="feedContainer">
             <div class="feed-article" v-for="(list, id) in this.storeFeedList" :key="id">
-                <Feed :id="id" :list="list" />
+                <router-link :to="`/${id}`">
+                    <Feed :id="id" :list="list" />
+                </router-link>
             </div>
         </div>
     </div>
