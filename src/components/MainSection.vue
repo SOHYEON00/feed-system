@@ -80,6 +80,7 @@ export default {
         getFeedList() { //request dispatch to get feed list
 
             let categoryIdList;
+            // let initialCategoryList
 
             //category List initialize, if dispatch(api/list) before get category list
             if(this.storeAllCategoryList.length === 0) {
@@ -95,7 +96,6 @@ export default {
                 'limit': 10
             };
             this.$store.dispatch('getFeedList', parameterObject);
-            this.$store.dispatch('setSelectedCategoryList', categoryIdList);
         },
         //category list initialize
         getAllCategoryList() {

@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import {TOGGLE_MODAL, CHANGE_ORD_STATUS} from '@/_store/types';
 
 export default {
   name: 'Filterbar',
@@ -34,14 +33,14 @@ export default {
       const {id} = e.target; 
       
       this.ordStatus = id; //change data(ordStatus) to value of clicked dom element
-      this.$store.commit(CHANGE_ORD_STATUS, this.ordStatus); // mutate state of application(sortStatus)
+      this.$store.commit('CHANGE_ORD_STATUS', this.ordStatus); // mutate state of application(sortStatus)
       
       (id === 'asc') ? //선택된 정렬에 따라 클래스 활성화/비활성화
         this.isActive = true : this.isActive = false;
     },
 
     toggleModalStatus: function() {
-      this.$store.commit(TOGGLE_MODAL, true);
+      this.$store.commit('TOGGLE_MODAL', true);
     }
   },
 }
@@ -49,5 +48,4 @@ export default {
 
 <style scoped lang="scss">
 @import '@/assets/filterbar.scss';
-
 </style>

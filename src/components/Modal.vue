@@ -3,44 +3,79 @@
     <section class="overlay"></section>
     <div class="modal-card">
       <section class="closeModalBtn">
-        <img src="../../public/img/그룹 560.svg"  @click="closeModal" />
-        <!-- <input type="button" value="X" @click="closeModal"/> -->
+        <img src="../../public/img/그룹 560.svg" @click="closeModal" />
       </section>
-      <form >
+      <form @submit="onSubmitHandler">
         <h2>필터</h2>
-        <label class="categoryListContainer" v-for="(category) in this.categoryListDOM" :key="category.id" >
-          <input type="checkbox" name="category.id" id="category.id" checked=true/> 
-          {{category.name}}
-        </label>
+        <div >
+          <label class="categoryListContainer" 
+            v-for="(category) in this.storeSelectedList" 
+            :for="category.name" 
+            :key="category.id" >
+            <input 
+              type="checkbox" 
+              :name="checkedCategory"
+              :id="category.id" 
+              :value="category"
+              v-model="checkedCategory"
+            /> 
+            {{category.name}}
+          </label>
+          {{checkedCategory}}
+        </div>
         <input type="submit" value="저장하기" />
       </form>
     </div>
-    
   </div>
 </template>
 
 <script>
-import {TOGGLE_MODAL} from '@/_store/types';
 
 export default {
   name: 'Modal',
   data() {
     return {
-      checkedValues: '',
+      checkedCategory: [],
     }
   },
+  mounted() {
+   this.initialSelectedList();
+   this.checkAll();
+  },
   computed: {
-
-    categoryListDOM: function () {
-      return this.$store.state.CategoryList;
+    storeSelectedList: function () {
+      return this.$store.state.SelectedCategoryList;
+    },
+    storeAllCategoryList: function() {
+      return this.$store.state.AllCategoryList;
     }
-
   },
 
   methods: {
     closeModal: function() {
-      this.$store.commit(TOGGLE_MODAL, false);
+      this.$store.commit('TOGGLE_MODAL', false);
+    },
+
+    initialSelectedList: function() {
+      //기본값 : 모두 선택
+      const tempList = this.storeAllCategoryList.map(e => ({ ...e, checked: true}));
+      this.$store.dispatch('setSelectedCategoryList', tempList); 
+    },
+
+    onSubmitHandler: function(e) {
+      e.preventDefault();
+      console.log(this.checkedCategory);
+    },
+
+    checkAll: function() {
+      const tempList = this.storeSelectedList;
+      for(let i in tempList) {
+        if (tempList[i].checked) {
+          this.checkedCategory.push(tempList[i]);
+        } 
+      }
     }
+
   }
 }
 </script>
