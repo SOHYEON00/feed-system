@@ -19,7 +19,8 @@ export default {
     getAllCategoryList: function({commit}) {
         return axios.get(CATEGORY, {HEADER})
             .then((response) => {
-                commit(GET_ALL_CATEGORY_LIST, response.data.category);
+                const addChecked = response.data.category.map(e => ({ ...e, checked: true}))
+                commit(GET_ALL_CATEGORY_LIST, addChecked);
             })
             .catch((error) => {console.log(error); })
     },

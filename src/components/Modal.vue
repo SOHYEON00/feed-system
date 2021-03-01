@@ -9,7 +9,7 @@
         <h2>필터</h2>
         <div >
           <label class="categoryListContainer" 
-            v-for="(category) in this.storeSelectedList" 
+            v-for="(category) in this.storeAllCategoryList" 
             :for="category.name" 
             :key="category.id" >
             <input 
@@ -21,7 +21,6 @@
             /> 
             {{category.name}}
           </label>
-          {{checkedCategory}}
         </div>
         <input type="submit" value="저장하기" />
       </form>
@@ -33,14 +32,15 @@
 
 export default {
   name: 'Modal',
+
   data() {
     return {
       checkedCategory: [],
     }
   },
+
   mounted() {
-   this.initialSelectedList();
-   this.checkAll();
+    this.initialCheck();
   },
   computed: {
     storeSelectedList: function () {
@@ -56,19 +56,14 @@ export default {
       this.$store.commit('TOGGLE_MODAL', false);
     },
 
-    initialSelectedList: function() {
-      //기본값 : 모두 선택
-      const tempList = this.storeAllCategoryList.map(e => ({ ...e, checked: true}));
-      this.$store.dispatch('setSelectedCategoryList', tempList); 
-    },
-
-    onSubmitHandler: function(e) {
+    onSubmitHandler: function(e) {  
       e.preventDefault();
-      console.log(this.checkedCategory);
+      this.$store.commit('SET_SELECTED_CATEGORY', this.checkedCategory); 
     },
 
-    checkAll: function() {
-      const tempList = this.storeSelectedList;
+    // 모든 체크박스 기본세팅: 모두 선택
+    initialCheck: function() {
+      const tempList = this.storeSelectedList.concat();
       for(let i in tempList) {
         if (tempList[i].checked) {
           this.checkedCategory.push(tempList[i]);

@@ -1,7 +1,6 @@
 <template>
     <div class="mainSection">
         <Filterbar />
-        
         <div class="feedContainer">
             <div class="feed-article" v-for="(list, id) in this.storeFeedList" :key="id">
                 <Feed :id="id" :list="list" />
@@ -46,6 +45,14 @@ export default {
         
         storeAllCategoryList: function () {
             return this.$store.state.AllCategoryList;
+        },
+
+        storeSelectedCategoryList: function() {
+            let selected = this.$store.state.SelectedCategoryList;
+            selected = (selected.length === 0) ? this.storeAllCategoryList : selected;
+
+            this.$store.commit('SET_SELECTED_CATEGORY', selected);
+            return selected;
         }
     },
 
@@ -101,7 +108,9 @@ export default {
         getAllCategoryList() {
             this.$store.dispatch('getAllCategoryList');
             this.getFeedList();
-        }
+        },
+
+  
         
     }
 }
