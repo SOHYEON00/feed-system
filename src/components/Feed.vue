@@ -49,7 +49,6 @@ export default {
             sliceText: (text) => {
                 return text.slice(0,10);
             },
-           
         }
 }
 </script>

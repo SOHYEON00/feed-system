@@ -29,6 +29,6 @@ export default {
         state.SelectedCategoryList = list.concat();
     },
     [SET_ADS_LIST](state, list) {
-        state.AdList = list;
+        state.AdList = state.AdList.concat(list);
     }
 }

@@ -7,9 +7,10 @@
             <Filterbar />
             <div class="feedContainer">
                 <article class="feed-article" v-for="(list, id) in this.storeFeedList" :key="id">
-                    <router-link :to="`/${id}`">
-                        <Feed :id="id" :list="list" />
+                    <router-link :to="`/${id}`" v-if='list.type === "feed"'>
+                        <Feed :id="id" :list="list"/>
                     </router-link>
+                    <AdComponent :ad="list" :id="id" v-else/>
                 </article>
             </div>
         </section>
@@ -19,12 +20,14 @@
 <script>
 import Filterbar from './Filterbar';
 import Feed from './Feed';
+import AdComponent from './AdComponent';
 
 export default {
     name: 'MainSection',
     components: {
         Filterbar,
         Feed,
+        AdComponent,
     },
     data() {
         return {
@@ -34,25 +37,37 @@ export default {
         }
     },
     computed: {
+        originalFeedList: function () {
+            return this.$store.state.FeedList;
+        },
         // get state from store
         storeFeedList: function () {
-            let listFromStore = this.$store.state.FeedList;
+            let temp =  this.originalFeedList.concat();
+            let listFromStore;
             const ordFromStore = this.storeStatusSort;
             const selectedCateogoryList = this.storeSelectedCategoryList;
 
-            //store.state는 변경하지 않고, 출력list만 정렬
-            if(ordFromStore === 'asc') {
-                listFromStore.sort((a,b) =>{return a.id-b.id});
-            } else if(ordFromStore === 'desc'){
-                listFromStore.sort((a,b) => {return b.id-a.id});
+            if(temp && ordFromStore && selectedCateogoryList){//store.state는 변경하지 않고, 출력list만 정렬
+                if(ordFromStore === 'asc') {
+                    temp.sort((a,b) =>{return a.id-b.id});
+                } else if(ordFromStore === 'desc'){
+                    temp.sort((a,b) => {return b.id-a.id});
+                }
+                //category list에서 id만 반환된 리스트
+                const idList = selectedCateogoryList.map(e => e.id);
+                listFromStore = temp.filter(e => idList.includes(e.category_id)); 
+                
+                //insert ads
+                const indexOfAds = this.pushAd(4);
+
+                for(let i in indexOfAds){
+                    listFromStore.splice(indexOfAds[i], 0, this.storeAdList[i]);
+                }
             }
-            //category list에서 id만 반환된 리스트
-            const idList = selectedCateogoryList.map(e => e.id);
-            listFromStore = listFromStore.filter(e => idList.includes(e.category_id));  
-            
             return listFromStore;
 
         },
+
         storeStatusSort: function () {
             return this.$store.state.SortStatus;
         },
@@ -79,6 +94,8 @@ export default {
     mounted() {
         window.addEventListener("scroll", this.scrollOnBottom);
         this.getAllCategoryList(); //get api요청
+        this.getFeedList();
+
     },
 
     methods: {
@@ -92,7 +109,7 @@ export default {
                 && this.currentPage <= lastPage
             ) {  
                 if(this.isRequestNewList === false){ //스크롤 이벤트 제어하기 위한 조건문
-                    this.currentPage++;  // get list of new page 
+                    this.currentPage++;
                     //change state using actions
                     const parameterObject = {
                         'page': this.currentPage,
@@ -102,6 +119,7 @@ export default {
                     };
 
                     this.$store.dispatch('getFeedList', parameterObject);
+                    this.getAdList();
                     this.isRequestNewList = true; 
                 }
             } 
@@ -120,14 +138,13 @@ export default {
                 this.categoryIdList = this.storeAllCategoryList.map(e => e.id);
             }
             //category List initialize, if dispatch(api/list) before get category list
-            if(this.storeFeedList.length === 0) {
+            if(this.originalFeedList.length === 0) {
                 const parameterObject = {
                     'page': this.currentPage,
                     'ord': this.storeStatusSort,
                     'category': this.categoryIdList,
                     'limit': 10
                 };
-
                 this.$store.dispatch('getFeedList', parameterObject);
             } 
             
@@ -135,15 +152,24 @@ export default {
         //category list initialize
         getAllCategoryList() {
             this.$store.dispatch('getAllCategoryList');
-            
-            const parameter = {
-                'page': this.currentPage,
-                'limit': (this.currentPage % 2 === 0) ? 3 : 2
-            }
-
-            this.$store.dispatch('getAdList', parameter);
-            this.getFeedList();
+            this.getAdList();
         },
+        getAdList() {
+            const adParameter = {
+                'page': this.currentPage,
+                'limit': 3  
+            }
+            this.$store.dispatch('getAdList', adParameter);
+        },
+
+        pushAd(index) {
+            let indexOfAds = [];
+
+            for(let i=1; i<=this.currentPage * 3; i++){
+                indexOfAds.push((i*index) - 1); //index번째에 광고를 삽입하기 위해 -1
+            }
+            return indexOfAds;
+        }
         
     }
 }

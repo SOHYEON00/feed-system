@@ -4,14 +4,14 @@ import {GET_FEED_LIST, GET_ALL_CATEGORY_LIST, SET_SELECTED_CATEGORY, SET_ADS_LIS
 
 export default {
     getFeedList: function({commit}, parameter) {
-        console.log(parameter);
         return axios.get(LIST, {
                 params: parameter,
                 HEADER
             })
             .then((response) => {
                 if(response.status === 200){
-                    commit(GET_FEED_LIST, response.data.data);
+                    const temp = response.data.data.map(e => ({ ...e, type: 'feed'}));
+                    commit(GET_FEED_LIST, temp);
                 }
             })
             .catch((error) => { console.log(error); })
@@ -22,7 +22,7 @@ export default {
         return axios.get(CATEGORY, {HEADER})
             .then((response) => {
                 if(response.status === 200){
-                    const addChecked = response.data.category.map(e => ({ ...e, checked: true}))
+                    const addChecked = response.data.category.map(e => ({ ...e, checked: true}));
                     commit(GET_ALL_CATEGORY_LIST, addChecked);
                 }
             })
@@ -34,12 +34,13 @@ export default {
     },
 
     getAdList: function({commit}, parameter) {
+        // console.log(parameter);
         return axios.get(ADS, {params: parameter, HEADER})
-            
             .then((response) => {
                 if(response.status === 200){
-                    console.log(response.data.data);
-                    commit(SET_ADS_LIST, response.data.data);
+                    
+                    const temp = response.data.data.map(e => ({ ...e, type: 'ad'}));
+                    commit(SET_ADS_LIST, temp);
                 }
             })
             .catch((error) => {console.log(error)})
