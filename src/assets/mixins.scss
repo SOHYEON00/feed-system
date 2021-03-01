@@ -9,7 +9,10 @@
     flex-direction: $direction;
 }
 
-// @mixin title() {
-//     color: $title_color;
-//     font: normal normal bold 18px/28px SpoqaHanSans;
-// }
+@mixin media-detail-container($color, $border-px) {
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+    padding: 1.5rem 0;
+    border: $border-px solid $color;
+}

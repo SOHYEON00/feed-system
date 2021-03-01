@@ -1,13 +1,13 @@
 <template>
   <main class="detail-main">
     <section class="feed-body-container">
-        <p class="title">{{this.feedObject.title}}</p>
+        <p class="title" >{{this.feedObject.title}}</p>
         <p class="contents">{{this.feedObject.contents}}</p>
         <p class="created">created_at({{sliceText(this.feedObject.created_at)}})</p>
     </section>
-    <section class="reply-container">
+    <section class="reply-container ">
         <p class="contents">답변 <span class="emphasize">{{(this.replyList).length}}</span></p>
-        <article v-for="reply in this.replyList" :key="reply.id">
+        <article class="reply" v-for="reply in this.replyList" :key="reply.id">
             <p class="user_name">{{reply.user.name}}</p>
             <p class="contents">{{reply.contents}}</p>
             <p class="created">created_at({{sliceText(reply.created_at)}})</p>
