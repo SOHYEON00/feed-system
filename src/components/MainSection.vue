@@ -3,16 +3,16 @@
         <aside>
             <div class="login">로그인</div>
         </aside>
-        <div class="mainSection">
+        <section class="mainSection">
             <Filterbar />
             <div class="feedContainer">
-                <div class="feed-article" v-for="(list, id) in this.storeFeedList" :key="id">
+                <article class="feed-article" v-for="(list, id) in this.storeFeedList" :key="id">
                     <router-link :to="`/${id}`">
                         <Feed :id="id" :list="list" />
                     </router-link>
-                </div>
+                </article>
             </div>
-        </div>
+        </section>
     </main>
 </template>
 
@@ -45,7 +45,7 @@ export default {
             } else if(ordFromStore === 'desc'){
                 listFromStore.sort((a,b) => {return b.id-a.id});
             }
-
+            //category list에서 id만 반환된 리스트
             const categoryIdList = selectedCateogoryList.map(e => e.id);
             listFromStore = listFromStore.filter(e => categoryIdList.includes(e.category_id));  
             
@@ -62,11 +62,11 @@ export default {
 
         storeSelectedCategoryList: function() {
             let selected = this.$store.state.SelectedCategoryList;
-            if(selected.length === 0) {
-                selected = this.storeAllCategoryList.concat();
+            
+            if(selected.length === 0) { //선택된 카테고리가 없는 경우
+                selected = this.storeAllCategoryList;
                 this.$store.commit('SET_SELECTED_CATEGORY', selected);
             } 
-
             return selected;
         }
     },
@@ -74,6 +74,7 @@ export default {
     mounted() {
         window.addEventListener("scroll", this.scrollOnBottom);
         this.getAllCategoryList(); //get api요청
+        console.log(this.storeFeedList);
     },
 
     methods: {
@@ -87,7 +88,6 @@ export default {
                 && this.currentPage <= lastPage
             ) {  
                 if(this.isRequestNewList === false){ //스크롤 이벤트 제어하기 위한 조건문
-
                     this.currentPage++;  // get list of new page 
                     this.getFeedList(); //change state using actions
                     this.isRequestNewList = true; 
@@ -107,21 +107,28 @@ export default {
             //category List initialize, if dispatch(api/list) before get category list
             if(this.storeAllCategoryList.length === 0) {
                 categoryIdList = [1,2,3];
+                const parameterObject = {
+                    'page': this.currentPage,
+                    'ord': this.storeStatusSort,
+                    'category': categoryIdList,
+                    'limit': 10
+                };
+
+                this.$store.dispatch('getFeedList', parameterObject);
             } else {
                 categoryIdList = this.storeAllCategoryList.map(e => e.id);
             }
-
-            const parameterObject = {
-                'page': this.currentPage,
-                'ord': this.storeStatusSort,
-                'category': categoryIdList,
-                'limit': 10
-            };
-            this.$store.dispatch('getFeedList', parameterObject);
         },
         //category list initialize
         getAllCategoryList() {
             this.$store.dispatch('getAllCategoryList');
+            
+            const parameter = {
+                'page': this.currentPage,
+                'limit': (this.currentPage % 2 === 0) ? 3 : 2
+            }
+
+            this.$store.dispatch('getAdList', parameter);
             this.getFeedList();
         },
         

@@ -24,6 +24,11 @@ body {
             justify-content: center;
             margin-top: 2rem;
 
+            a {
+                text-decoration: none;
+                outline: none;
+            }
+
             aside div{
                 background-color: $comento_color;
                 border-radius: 5px;

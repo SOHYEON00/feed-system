@@ -6,6 +6,7 @@ export const GET_FEED_LIST = "GET_FEED_LIST";
 export const CHANGE_ORD_STATUS = "CHANGE_ORD_STATUS";
 export const TOGGLE_MODAL = "TOGGLE_MODAL";
 export const SET_SELECTED_CATEGORY = "SET_SELECTED_CATEGORY";
+export const SET_ADS_LIST = "SET_ADS_LIST";
 
 
 export default {
@@ -27,4 +28,7 @@ export default {
     [SET_SELECTED_CATEGORY](state, list) {
         state.SelectedCategoryList = list.concat();
     },
+    [SET_ADS_LIST](state, list) {
+        state.AdList = list;
+    }
 }
