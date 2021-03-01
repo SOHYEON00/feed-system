@@ -38,7 +38,6 @@ export default {
             },
 
             printCategoryName: function() {
-                
                 const pickedCategory = this.storeAllCategory.filter((e) => e.id === this.list.category_id);
                 return pickedCategory[0].name;
             }

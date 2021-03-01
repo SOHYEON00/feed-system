@@ -79,5 +79,11 @@ body {
         font: normal normal normal 13px/25px SpoqaHanSans;
         color: #ADB5BD;
     }
+    .contents-body{
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        margin: 0;
+    }
 }
 

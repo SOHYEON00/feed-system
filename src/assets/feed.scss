@@ -21,21 +21,6 @@
         padding-left: 0.5rem;
     }
 
-    .contents-body{
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
-        margin: 0;
-    }
-    .title {
-        font-size: 18px/28px;
-        color: $title_color
-    }
-    .contents {
-        font-size: 16px/25px;
-        color: $contents_color;
-    }
-
 }
 
 
