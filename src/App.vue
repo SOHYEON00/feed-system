@@ -3,12 +3,8 @@
     <Modal v-if="this.storeModalStatus" @close-modal="this.storeModalStatus=false" />
     <div>
       <header>[2021-03-01] 오소현</header>
-        <main>
-          <aside>
-          <div class="login">로그인</div>
-          </aside>
-          <router-view></router-view>
-        </main>
+        <router-view></router-view>
+        
       </div>
   </div>
 </template>

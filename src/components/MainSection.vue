@@ -1,14 +1,19 @@
 <template>
-    <div class="mainSection">
-        <Filterbar />
-        <div class="feedContainer">
-            <div class="feed-article" v-for="(list, id) in this.storeFeedList" :key="id">
-                <router-link :to="`/${id}`">
-                    <Feed :id="id" :list="list" />
-                </router-link>
+    <main>
+        <aside>
+            <div class="login">로그인</div>
+        </aside>
+        <div class="mainSection">
+            <Filterbar />
+            <div class="feedContainer">
+                <div class="feed-article" v-for="(list, id) in this.storeFeedList" :key="id">
+                    <router-link :to="`/${id}`">
+                        <Feed :id="id" :list="list" />
+                    </router-link>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
 </template>
 
 <script>

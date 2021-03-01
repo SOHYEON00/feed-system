@@ -26,7 +26,8 @@ export default {
         getViewDetail: function(id) {
             return axios.get(VIEW, {params: {id: id+1}, HEADER})
             .then((response) => {
-                this.feedObject = response.data;
+                this.feedObject = response.data.data;
+                console.log(this.feedObject);
             })
             .catch((error) => {console.log(error); })
         }
