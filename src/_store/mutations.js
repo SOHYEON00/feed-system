@@ -26,5 +26,5 @@ export default {
     },
     [SET_SELECTED_CATEGORY](state, list) {
         state.SelectedCategoryList = list.concat();
-    }
+    },
 }
